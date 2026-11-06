@@ -1,0 +1,28 @@
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Imagen</th>
+    <th scope="col">Nombre</th>
+    <th scope="col">Tamaño</th>
+    <th scope="col">RAM</th>
+    <th scope="col">Almacenamiento</th>
+    <th scope="col">Núcleos</th>
+    <th scope="col">Marca</th>
+  </tr>
+</thead>
+<tbody>
+  @for (celular of celulares(); track celular.id) {
+    <tr>
+      <th scope="row">{{ celular.id }}</th>
+      <td><img [src]="celular.imagen" [alt]="celular.nombre" width="100"></td>
+      <td>{{ celular.nombre }}</td>
+      <td>{{ celular.tamano }}</td>
+      <td>{{ celular.memoriaRam }}</td>
+      <td>{{ celular.espacioAlmacenamiento }}</td>
+      <td>{{ celular.nucleos }}</td>
+      <td>{{ celular.marcaId }}</td>
+    </tr>
+  }
+</tbody>
+</table>
