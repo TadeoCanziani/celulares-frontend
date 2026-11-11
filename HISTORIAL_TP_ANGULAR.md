@@ -125,4 +125,18 @@ Según `git status -sb` en el repo del frontend:
 
 ---
 
+## 9. Búsqueda avanzada (último paso implementado)
+
+- **Fecha:** 11 de noviembre de 2026
+- **Archivos creados/modificados:**
+  - `src/app/filtros-celulares.service.ts` (nuevo): servicio con `BehaviorSubject` que guarda los filtros (`nombre`, `memoriaRam`, `marcaId`) y los difunde a los componentes suscriptos.
+  - `src/app/service-datos-celular.ts`: se agregó el método `buscar(filtros)` que envía query params al backend (`?nombre=`, `?memoriaRam=`, `?marcaId=`).
+  - `src/app/lista-celulares/lista-celulares.ts`: ahora usa `signal<Celular[]>` y se suscribe a los cambios de filtros para volver a consultar el backend.
+  - `src/app/app.ts`: inyecta `FiltrosCelularService` y lo expone como `public filtros` para usarlo en el template.
+  - `src/app/app.html`: la izquierda (col-4) tiene el buscador con 3 inputs (Nombre, Memoria RAM, Marca ID). La derecha (col-8) muestra la lista `<lista-celulares>`.
+- **Estado:** funciona. Al escribir en los inputs de la izquierda, la tabla de la derecha se actualiza consultando `GET /celulares?nombre=...&memoriaRam=...&marcaId=...` al backend.
+- **Pending:** pendiente agregar modal para crear celulares y marcas, y gráfico de torta (opcional).
+
+---
+
 *Este historial debe entregarse junto con el TP como parte de la evaluación.*
