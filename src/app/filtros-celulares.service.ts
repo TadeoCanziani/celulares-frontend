@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-
-export interface FiltrosCelular {
-  nombre?: string;
-  memoriaRam?: string;
-  marcaId?: string;
-}
+import { FiltrosCelular } from './models/filtros-celular';
 
 @Injectable({ providedIn: 'root' })
 export class FiltrosCelularService {

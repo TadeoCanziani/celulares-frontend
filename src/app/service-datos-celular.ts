@@ -19,4 +19,8 @@ export class DatosCelular {
     if (filtros.marcaId) params = params.set('marcaId', filtros.marcaId);
     return this.http.get<Celular[]>(this.apiUrl, { params });
   }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }

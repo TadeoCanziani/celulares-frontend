@@ -1,0 +1,33 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Buscar celulares</h5>
+    <div class="mb-2">
+      <label class="form-label">Nombre</label>
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Ej. Galaxy" [value]="filtro.nombre ?? ''"
+          (input)="filtro.nombre = $any($event.target).value">
+        <button class="btn btn-outline-secondary" type="button" aria-label="Limpiar búsqueda" title="Limpiar búsqueda"
+          (click)="limpiar()">×</button>
+      </div>
+    </div>
+    <div class="mb-2">
+      <label class="form-label">Memoria RAM</label>
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Ej. 8GB" [value]="filtro.memoriaRam ?? ''"
+          (input)="filtro.memoriaRam = $any($event.target).value">
+        <button class="btn btn-outline-secondary" type="button" aria-label="Limpiar búsqueda" title="Limpiar búsqueda"
+          (click)="limpiar()">×</button>
+      </div>
+    </div>
+    <div class="mb-3">
+  <label class="form-label">Marca</label>
+  <select class="form-select" (change)="filtro.marcaId = $any($event.target).value">
+    <option value="">Todas las marcas</option>
+    @for (marca of marcas; track marca.id) {
+      <option [value]="marca.id">{{ marca.nombre }}</option>
+    }
+  </select>
+</div>
+    <button class="btn btn-primary w-100" (click)="buscar()">Buscar</button>
+  </div>
+</div>

@@ -1,74 +1,17 @@
 <div class="container">
   <div class="row align-items-start">
     <div class="col-2">
-      <img src="logo.png" alt="Logo" class="img-fluid">
+      <app-logo></app-logo>
     </div>
     <div class="col-10">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-            aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                  data-bs-toggle="dropdown" aria-expanded="false">
-                  Menu
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-              </li>
-            </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-          </div>
-        </div>
-      </nav>
+      <app-header></app-header>
     </div>
   </div>
 
   <div class="row align-items-center mt-4">
     <!-- IZQUIERDA: BÚSQUEDA AVANZADA -->
     <div class="col-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Buscar celulares</h5>
-          <div class="mb-2">
-            <label class="form-label">Nombre</label>
-            <input type="text" class="form-control" placeholder="Ej. Galaxy"
-              (input)="filtros.actualizar({ nombre: $any($event.target).value })">
-          </div>
-          <div class="mb-2">
-            <label class="form-label">Memoria RAM</label>
-            <input type="text" class="form-control" placeholder="Ej. 8GB"
-              (input)="filtros.actualizar({ memoriaRam: $any($event.target).value })">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Marca (ID)</label>
-            <input type="number" class="form-control" placeholder="Ej. 1"
-              (input)="filtros.actualizar({ marcaId: $any($event.target).value })">
-          </div>
-          <button class="btn btn-primary w-100" (click)="buscar()">Buscar</button>
-        </div>
-      </div>
+      <busqueda></busqueda>
     </div>
 
     <!-- DERECHA: LISTA DE CELULARES -->
@@ -79,11 +22,7 @@
 
   <div class="row align-items-end mt-4">
     <div class="col">
-      <footer class="bg-body-tertiary text-center text-lg-start">
-        <div class="text-center p-3" style="background-color: rgba(161, 4, 4, 0.796);">
-           2026
-        </div>
-      </footer>
+      <div class="col-12"><app-footer></app-footer></div>
     </div>
   </div>
 </div>
