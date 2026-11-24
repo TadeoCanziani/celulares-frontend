@@ -1,0 +1,61 @@
+<div class="card mt-3">
+  <div class="card-body">
+    <h5 class="card-title">{{ esEdicion ? 'Editar celular' : 'Nuevo celular' }}</h5>
+    @if (cargando()) {
+      <p class="mb-0" role="status">Cargando celular...</p>
+    } @else if (errorCarga()) {
+      <p class="text-danger mb-0" role="alert">{{ error() }}</p>
+    } @else {
+      @if (error()) {
+        <p class="text-danger" role="alert">{{ error() }}</p>
+      }
+      <form (ngSubmit)="guardar()">
+      <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" class="form-control" [(ngModel)]="celular.nombre" name="nombre" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Tamaño</label>
+        <input type="text" class="form-control" [(ngModel)]="celular.tamano" name="tamano">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Memoria RAM</label>
+        <input type="text" class="form-control" [(ngModel)]="celular.memoriaRam" name="memoriaRam">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Almacenamiento</label>
+        <input type="text" class="form-control" [(ngModel)]="celular.espacioAlmacenamiento" name="espacioAlmacenamiento">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Núcleos</label>
+        <input type="number" class="form-control" [(ngModel)]="celular.nucleos" name="nucleos">
+      </div>
+      <div class="mb-3">
+        <label for="imagen" class="form-label">Imagen (URL o ruta)</label>
+        <input
+          id="imagen"
+          type="text"
+          class="form-control"
+          [(ngModel)]="celular.imagen"
+          name="imagen"
+          placeholder="https://... o a10.webp"
+        >
+      </div>
+      <div class="mb-3">
+        <label for="marcaId" class="form-label">Marca</label>
+        <select id="marcaId" class="form-select" [(ngModel)]="celular.marcaId" name="marcaId" required>
+          <option [ngValue]="null" disabled>Seleccioná una marca</option>
+          @for (marca of marcas(); track marca.id) {
+            <option [ngValue]="marca.id">{{ marca.nombre }}</option>
+          }
+        </select>
+        @if (errorMarcas()) {
+          <div class="text-danger mt-1">No se pudieron cargar las marcas.</div>
+        }
+      </div>
+      <button type="submit" class="btn btn-primary me-3">Guardar</button>
+      <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+      </form>
+    }
+  </div>
+</div>

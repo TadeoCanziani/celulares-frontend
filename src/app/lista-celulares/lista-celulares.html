@@ -1,7 +1,11 @@
 <table class="table table-hover">
+  @if (error()) {
+    <caption class="caption-top text-danger" role="alert">{{ error() }}</caption>
+  } @else if (mensaje() && !confirmacionEliminar()) {
+    <caption class="caption-top text-success" role="status">{{ mensaje() }}</caption>
+  }
   <thead>
     <tr>
-      <th scope="col">#</th>
       <th scope="col">Imagen</th>
       <th scope="col">Nombre</th>
       <th scope="col">Tamaño</th>
@@ -15,19 +19,56 @@
   <tbody>
     @for (celular of celulares(); track celular.id) {
       <tr>
-        <th scope="row">{{ celular.id }}</th>
         <td><img [src]="celular.imagen" [alt]="celular.nombre" width="100"></td>
         <td>{{ celular.nombre }}</td>
         <td>{{ celular.tamano }}</td>
         <td>{{ celular.memoriaRam }}</td>
         <td>{{ celular.espacioAlmacenamiento }}</td>
         <td>{{ celular.nucleos }}</td>
-        <td>{{ celular.marcaId }}</td>
+        <td>{{ marcasPorId().get(celular.marcaId) ?? 'Marca no disponible' }}</td>
         <td>
-          <button class="btn btn-sm btn-outline theme-warning me-1" (click)="editar(celular)" title="Editar">✏️</button>
-          <button class="btn btn-sm btn-outline theme-danger" (click)="eliminar(celular.id)" title="Eliminar">🗑️</button>
+          <button class="btn btn-sm btn-outline-warning me-1" [routerLink]="['/celulares', 'editar', celular.id]" title="Editar">✏️</button>
+          <button
+            class="btn btn-sm btn-outline-danger"
+            type="button"
+            [disabled]="eliminando() !== null"
+            (click)="solicitarEliminar(celular.id, celular.nombre)"
+            title="Eliminar"
+          >🗑️</button>
         </td>
       </tr>
     }
   </tbody>
 </table>
+
+@if (confirmacionEliminar(); as celularAEliminar) {
+  <div class="confirmation-backdrop" (click)="cancelarEliminacion()">
+    <section
+      class="confirmation-dialog"
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="confirmar-eliminar-celular"
+      (click)="$event.stopPropagation()"
+    >
+      <h2 id="confirmar-eliminar-celular" class="h5">Eliminar celular</h2>
+      <p>¿Estás seguro de que querés eliminar “{{ celularAEliminar.nombre }}”?</p>
+      @if (errorEliminar()) {
+        <p class="text-danger" role="alert">{{ errorEliminar() }}</p>
+      }
+      <div class="d-flex justify-content-end gap-2">
+        <button
+          class="btn btn-catalog-outline"
+          type="button"
+          [disabled]="eliminando() !== null"
+          (click)="cancelarEliminacion()"
+        >Cancelar</button>
+        <button
+          class="btn btn-catalog-primary"
+          type="button"
+          [disabled]="eliminando() !== null"
+          (click)="eliminar(celularAEliminar.id)"
+        >{{ eliminando() === celularAEliminar.id ? 'Eliminando...' : 'Eliminar' }}</button>
+      </div>
+    </section>
+  </div>
+}

@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body">
-    <h5 class="card-title">Buscar celulares</h5>
+    <h5 class="card-title">Celulares</h5>
     <div class="mb-2">
       <label class="form-label">Nombre</label>
       <div class="input-group">
@@ -23,11 +23,25 @@
   <label class="form-label">Marca</label>
   <select class="form-select" (change)="filtro.marcaId = $any($event.target).value">
     <option value="">Todas las marcas</option>
-    @for (marca of marcas; track marca.id) {
+    @for (marca of marcas(); track marca.id) {
       <option [value]="marca.id">{{ marca.nombre }}</option>
     }
   </select>
 </div>
-    <button class="btn btn-primary w-100" (click)="buscar()">Buscar</button>
+    <div class="d-grid gap-2">
+  <button class="btn btn-catalog-primary" type="button" (click)="buscar()">Buscar</button>
+  <button class="btn btn-catalog-outline" type="button" (click)="mostrarCelulares()">Mostrar celulares</button>
+  <button class="btn btn-catalog-primary" type="button" (click)="crearNuevo()">Agregar celular</button>
+    </div>
+  </div>
+</div>
+
+<div class="card mt-3">
+  <div class="card-body">
+    <h5 class="card-title">Marcas</h5>
+    <div class="d-grid gap-2">
+      <button class="btn btn-catalog-outline" type="button" (click)="mostrarMarcas()">Mostrar marcas</button>
+      <button class="btn btn-catalog-primary" type="button" (click)="agregarMarca()">Agregar marca</button>
+    </div>
   </div>
 </div>

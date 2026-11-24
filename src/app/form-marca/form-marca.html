@@ -1,0 +1,30 @@
+<div class="card mt-3">
+  <div class="card-body">
+    <h5 class="card-title">{{ esEdicion() ? 'Editar marca' : 'Agregar marca' }}</h5>
+    @if (cargando()) {
+      <p class="mb-0" role="status">Cargando marca...</p>
+    } @else {
+      <form (ngSubmit)="guardar()">
+        <div class="mb-3">
+          <label for="nombreMarca" class="form-label">Nombre</label>
+          <input
+            id="nombreMarca"
+            type="text"
+            class="form-control"
+            [ngModel]="nombre()"
+            (ngModelChange)="nombre.set($event)"
+            name="nombre"
+            required
+          >
+        </div>
+        @if (error()) {
+          <p class="text-danger" role="alert">{{ error() }}</p>
+        }
+        <button type="submit" class="btn btn-primary me-2" [disabled]="guardando() || !nombre().trim()">
+          {{ guardando() ? 'Guardando...' : 'Guardar' }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+      </form>
+    }
+  </div>
+</div>

@@ -1,0 +1,85 @@
+<div class="card mt-3">
+  <div class="card-body">
+    <h5 class="card-title">Marcas</h5>
+
+    @if (mensaje() && !confirmacionEliminar()) {
+      <p class="text-success" role="status">{{ mensaje() }}</p>
+    }
+
+    @if (cargando()) {
+      <p class="mb-0" role="status">Cargando marcas...</p>
+    } @else if (error()) {
+      <p class="text-danger mb-0" role="alert">No se pudieron cargar las marcas.</p>
+    } @else if (marcas().length === 0) {
+      <p class="mb-0">Todavía no hay marcas cargadas.</p>
+    } @else {
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (marca of marcas(); track marca.id) {
+              <tr>
+                <th scope="row">{{ marca.id }}</th>
+                <td>{{ marca.nombre }}</td>
+                <td>
+                  <button
+                    class="btn btn-sm btn-outline-warning me-1"
+                    [routerLink]="['/marcas', 'editar', marca.id]"
+                    [attr.aria-label]="'Editar ' + marca.nombre"
+                    title="Editar"
+                  >✏️</button>
+                  <button
+                    class="btn btn-sm btn-outline-danger"
+                    type="button"
+                    [disabled]="eliminando() !== null"
+                    (click)="solicitarEliminar(marca.id, marca.nombre)"
+                    [attr.aria-label]="'Eliminar ' + marca.nombre"
+                    title="Eliminar"
+                  >🗑️</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</div>
+
+@if (confirmacionEliminar(); as marcaAEliminar) {
+  <div class="confirmation-backdrop" (click)="cancelarEliminacion()">
+    <section
+      class="confirmation-dialog"
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="confirmar-eliminar-marca"
+      (click)="$event.stopPropagation()"
+    >
+      <h2 id="confirmar-eliminar-marca" class="h5">Eliminar marca</h2>
+      <p>¿Estás seguro de que querés eliminar “{{ marcaAEliminar.nombre }}”?</p>
+      @if (errorEliminar()) {
+        <p class="text-danger" role="alert">{{ errorEliminar() }}</p>
+      }
+      <div class="d-flex justify-content-end gap-2">
+        <button
+          class="btn btn-catalog-outline"
+          type="button"
+          [disabled]="eliminando() !== null"
+          (click)="cancelarEliminacion()"
+        >Cancelar</button>
+        <button
+          class="btn btn-catalog-primary"
+          type="button"
+          [disabled]="eliminando() !== null"
+          (click)="eliminar(marcaAEliminar.id)"
+        >{{ eliminando() === marcaAEliminar.id ? 'Eliminando...' : 'Eliminar' }}</button>
+      </div>
+    </section>
+  </div>
+}

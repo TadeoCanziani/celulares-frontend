@@ -1,5 +1,5 @@
 export interface Celular {
-imagen: any;
+imagen: string;
   id: number;
   nombre: string;
   tamano: string;

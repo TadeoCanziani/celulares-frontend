@@ -1,0 +1,52 @@
+.catalog-header {
+  width: 100%;
+}
+
+.banner-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0.375rem;
+}
+
+.header-nav {
+  position: absolute;
+  top: 0.75rem;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0 0.75rem;
+}
+
+.header-button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #d5e8e8;
+  border-radius: 0.375rem;
+  background-color: rgba(18, 59, 74, 0.94);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 150ms ease;
+}
+
+.header-button:hover,
+.header-button.active {
+  background-color: #176b68;
+}
+
+.header-button:focus-visible {
+  outline: 3px solid #f4c95d;
+  outline-offset: 2px;
+}
+
+.banner {
+  display: block;
+  width: 100%;
+  height: clamp(72px, 18vw, 180px);
+  object-fit: cover;
+  object-position: center 80%;
+}

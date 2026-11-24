@@ -139,4 +139,38 @@ Según `git status -sb` en el repo del frontend:
 
 ---
 
+---
+
+## 10. Ruteo completo y CRUD de marcas (implementado, sin commitear aún)
+
+- **Fecha:** 24 de noviembre de 2026
+- **Nuevos componentes creados:**
+  - `src/app/form-celular/` — formulario para crear y editar celulares. Trae marcas desde el backend en un `<select>`, valida nombre y marca, guarda con `POST`/`PATCH`, redirige a `/celulares`.
+  - `src/app/form-marca/` — formulario para crear y editar marcas. Usa `signal`, valida nombre, muestra errores en pantalla, guarda con `POST`/`PATCH`, redirige a `/marcas`.
+  - `src/app/lista-marcas/` — listado de marcas con tabla, botón "Agregar marca", botones editar (naviga a `/marcas/editar/:id`) y eliminar con confirmación y mensaje de error en pantalla.
+  - `src/app/acerca-de/` — componente informativo con resumen del tipo de aplicación (front y backend), herramientas usadas y requisitos de la materia.
+- **Servicios completados:**
+  - `src/app/service-datos-celular.ts`: agregados `getById`, `create`, `update` y `delete`.
+  - `src/app/service-datos-marcas.ts`: completo con `getAll`, `getById`, `create`, `update` y `delete`.
+- **Rutas activadas en `app.routes.ts`:**
+  - `/celulares` → `ListaCelulares`
+  - `/celulares/nuevo` → `FormCelular`
+  - `/celulares/editar/:id` → `FormCelular`
+  - `/marcas` → `ListaMarcas`
+  - `/marcas/nuevo` → `FormMarca`
+  - `/marcas/editar/:id` → `FormMarca`
+  - `/acerca-de` → `AcercaDe`
+  - `''` → redirige a `/celulares`
+- **Layout en `app.html`:**
+  - Izquierda fija (col-4): componente `<busqueda>` con filtros (nombre, RAM, marca), botones "Buscar", "Agregar celular", "Mostrar marcas" y "Agregar marca".
+  - Derecha (col-8): `<router-outlet>` que renderiza el componente de la ruta activa.
+  - Header y footer fijos arriba y abajo.
+- **Mejoras pendientes (pendiente de commitear):**
+  - Reemplazar `alert()`/`confirm()` en `form-celular` y `lista-celulares` por mensajes en pantalla (ya está hecho en `form-marca` y `lista-marcas`).
+  - Corregir clases CSS inexistentes (`btn-catalog-primary`, `btn-outline theme-danger`).
+  - Commitear todo y subir a GitHub.
+  - Desplegar backend en Render y frontend en Netlify (requisito obligatorio de la segunda entrega).
+
+---
+
 *Este historial debe entregarse junto con el TP como parte de la evaluación.*

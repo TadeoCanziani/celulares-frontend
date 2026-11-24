@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { FiltrosCelularService } from '../filtros-celulares.service';
 import { FiltrosCelular } from '../models/filtros-celular';
 import { Marca } from '../models/marca';
@@ -12,17 +13,21 @@ import { DatosMarca } from '../service-datos-marcas';
 })
 export class Busqueda implements OnInit {
   filtro: FiltrosCelular = {};
-  marcas: Marca[] = [];
+  marcas = signal<Marca[]>([]);
 
   constructor(
     public filtros: FiltrosCelularService,
-    private datosMarca: DatosMarca
+    private datosMarca: DatosMarca,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.datosMarca.getAll().subscribe({
-      next: (marcas) => this.marcas = marcas,
-      error: () => this.marcas = []
+      next: (marcas) => this.marcas.set(marcas),
+      error: (err) => {
+        console.error('Error al cargar las marcas para el filtro:', err);
+        this.marcas.set([]);
+      }
     });
   }
 
@@ -30,8 +35,24 @@ export class Busqueda implements OnInit {
     this.filtros.actualizar(this.filtro);
   }
 
+  mostrarCelulares() {
+    this.router.navigate(['/celulares']);
+  }
+
   limpiar() {
     this.filtro = {};
     this.filtros.actualizar(this.filtro);
+  }
+
+  crearNuevo() {
+    this.router.navigate(['/celulares', 'nuevo']);
+  }
+
+  mostrarMarcas() {
+    this.router.navigate(['/marcas']);
+  }
+
+  agregarMarca() {
+    this.router.navigate(['/marcas', 'nuevo']);
   }
 }

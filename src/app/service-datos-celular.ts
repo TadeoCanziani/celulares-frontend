@@ -23,4 +23,16 @@ export class DatosCelular {
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  getById(id: number): Observable<Celular> {
+    return this.http.get<Celular>(`${this.apiUrl}/${id}`);
+  }
+
+  create(celular: Omit<Celular, 'id'>): Observable<Celular> {
+    return this.http.post<Celular>(this.apiUrl, celular);
+  }
+
+  update(id: number, celular: Partial<Celular>): Observable<Celular> {
+    return this.http.patch<Celular>(`${this.apiUrl}/${id}`, celular);
+  }
 }
