@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Marca } from './models/marca';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class DatosMarca {
-  private apiUrl = 'https://celulares-c19e.onrender.com/marcas';
+  private apiUrl = `${environment.apiUrl}/marcas`;
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Marca[]> {
