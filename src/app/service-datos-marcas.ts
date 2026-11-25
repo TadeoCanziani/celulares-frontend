@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DatosMarca {
-  private apiUrl = 'http://localhost:3000/marcas';
+  private apiUrl = 'https://celulares-c19e.onrender.com/marcas';
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Marca[]> {

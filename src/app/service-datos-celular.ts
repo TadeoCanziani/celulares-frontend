@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Celular } from './models/celular';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class DatosCelular {
-  private apiUrl = 'http://localhost:3000/celulares';
+  private apiUrl = `${environment.apiUrl}/celulares`;
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Celular[]> {
